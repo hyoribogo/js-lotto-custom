@@ -6,31 +6,30 @@ import NumberValidator from '../utils/validators/NumberValidator.js'
 
 class Lotto {
   #numbers
-  #winningNumbers
+  #matchedNumbers
 
   constructor(numbers) {
     Lotto.#validateNumbers(numbers)
     this.#numbers = numbers
-    this.#winningNumbers = { main: new Set(), bonus: null }
+    this.#matchedNumbers = { main: new Set(), bonus: null }
   }
 
   get numbers() {
     return [...this.#numbers]
   }
 
-  get mainWinningNumbers() {
-    return [...this.#winningNumbers.main]
-  }
-
-  get bonusWinningNumber() {
-    return this.#winningNumbers.bonus
+  get matchedNumbers() {
+    return {
+      main: [...this.#matchedNumbers.main],
+      bonus: this.#matchedNumbers.bonus,
+    }
   }
 
   get matchedCount() {
-    const mainMatchedCount = this.#winningNumbers.main.size
-    const bonusMatchedCount = this.#winningNumbers.bonus !== null ? 1 : 0
-
-    return mainMatchedCount + bonusMatchedCount
+    return {
+      main: this.#matchedNumbers.main.size,
+      bonus: this.#matchedNumbers.bonus ? 1 : 0,
+    }
   }
 
   addMainNumbers(...numbers) {
@@ -40,8 +39,8 @@ class Lotto {
       this.#numbers.includes(number)
     )
 
-    this.#winningNumbers.main = new Set([
-      ...this.#winningNumbers.main,
+    this.#matchedNumbers.main = new Set([
+      ...this.#matchedNumbers.main,
       ...matchedWinningNumbers,
     ])
 
@@ -49,13 +48,13 @@ class Lotto {
   }
 
   addBonusNumber(number) {
-    if (this.#winningNumbers.main.has(number)) {
+    if (this.#matchedNumbers.main.has(number)) {
       throw new Error(ERROR_MESSAGES.ALREADY_WINNING_NUMBER)
     }
 
     Lotto.#validateNumber(number)
 
-    this.#winningNumbers.bonus = number
+    this.#matchedNumbers.bonus = number
 
     return this
   }

@@ -4,6 +4,7 @@ import { LOTTO } from '../constants/lottoValues'
 import { ERROR_MESSAGES } from '../constants/errorMessages'
 
 describe('Lotto > ', () => {
+  // 범위, 개수에 대한 확장성을 위해 한 번 작성해본 테스트
   test(`${LOTTO.MIN_NUM} ~ ${LOTTO.MAX_NUM} 범위의 로또 번호 ${LOTTO.COUNT}개를 자동으로 생성할 수 있다.`, () => {
     const lotto = Lotto.generate({ auto: true })
 
@@ -59,7 +60,7 @@ describe('Lotto > ', () => {
       Lotto.generate({
         auto: false,
         numbers: [1, 2, 3, 4, 5, 6],
-      }).addMainNumbers(1, 3, 5, 7).mainWinningNumbers
+      }).addMainNumbers(1, 3, 5, 7).matchedNumbers.main
     ).toEqual([1, 3, 5])
   })
 
@@ -68,7 +69,7 @@ describe('Lotto > ', () => {
       Lotto.generate({
         auto: false,
         numbers: [1, 2, 3, 4, 5, 6],
-      }).addBonusNumber(5).bonusWinningNumber
+      }).addBonusNumber(5).matchedNumbers.bonus
     ).toBe(5)
   })
 
@@ -81,7 +82,7 @@ describe('Lotto > ', () => {
         .addMainNumbers(1, 3, 5, 7)
         .addMainNumbers(1)
         .addMainNumbers(1)
-        .addMainNumbers(1).mainWinningNumbers
+        .addMainNumbers(1).matchedNumbers.main
     ).toEqual([1, 3, 5])
   })
 
@@ -118,6 +119,6 @@ describe('Lotto > ', () => {
         auto: false,
         numbers: [1, 2, 3, 4, 5, 6],
       }).addMainNumbers(1, 3, 5, 7).matchedCount
-    ).toBe(3)
+    ).toEqual({ main: 3, bonus: 0 })
   })
 })
