@@ -24,7 +24,7 @@ describe('LottoWinningManager > ', () => {
     expect(lottoWinningManager.getWinningNumbers()).toEqual([1, 3, 7])
   })
 
-  test.each([{ amount: 1, amount: 4, amount: 10 }])(
+  test.each([{ amount: 1 }, { amount: 4 }, { amount: 10 }])(
     '당첨 번호를 원하는 개수만큼 자동으로 추가할 수 있다. : $amount개',
     ({ amount }) => {
       expect(
