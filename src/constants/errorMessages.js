@@ -7,4 +7,7 @@ export const ERROR_MESSAGES = Object.freeze({
     '이미 당첨된 번호는 보너스 번호로 추가할 수 없습니다.',
   LOTTO_PRICE_TOO_LOW: `로또 구매 금액은 ${LOTTO.PRICE}원 이상이어야 합니다.`,
   INVALID_WINNING_RULE: '당첨 규칙은 당첨 개수와 상금을 포함해야 합니다.',
+  INVALID_WINNING_COUNT: '당첨 개수는 0개 이상이어야 합니다.',
+  NOT_WINNING_INTEGER: '당첨 개수는 정수여야 합니다.',
+  INVALID_WINNING_PRIZE: '상금은 0원 이상이어야 합니다.',
 })
